@@ -1,0 +1,11 @@
+<nav mat-tab-nav-bar [backgroundColor]="background">
+    <button mat-flat-button color="primary" routerLink='/' (click)="activeLink = ''">
+        <mat-icon aria-hidden="false" style="padding-right: 5px">assignment</mat-icon>
+        {{ appName }}
+    </button>
+    <a mat-tab-link *ngFor="let link of sitemap.links; let i = index" (click)="activeLink = link" [active]="activeLink == link"
+        [routerLink]="link">
+        <mat-icon aria-hidden="false"> {{ sitemap.icons[i] }}</mat-icon>
+        {{sitemap.captions[i] | uppercase}}
+    </a>
+</nav>
