@@ -1,0 +1,17 @@
+@import url('../../../../assets/fonts/Inter/inter.css');
+
+.container {
+    box-sizing: border-box;
+    padding: 30px 30px 30px 30px;
+    background-image: url('../../../../assets/images/warehouse_hero.jpg');
+    background-position: center;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.welcome-message {
+    display: flex;
+    justify-content: center;
+    font-size: 22pt;
+    font-family: 'Inter';
+}

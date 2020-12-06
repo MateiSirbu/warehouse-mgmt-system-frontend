@@ -1,0 +1,59 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.container {
+    box-sizing: border-box;
+    padding: 30px 30px 30px 30px;
+    background-image: url('../../../../assets/images/warehouse_blur.png');
+    background-position: center;
+    height: 100%;
+    overflow-y: scroll;
+    z-index: 10;
+}
+
+.login-button {
+    position: fixed;
+    z-index: 999;
+    bottom: 50px;
+    right: 50px;
+}
+
+@media screen and (max-width: 460px) {
+    .mat-form-field {
+        width: 100%;
+    }
+}
+
+mat-form-field {
+    width: 400px;
+}
+
+.img-keychain {
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    right: 0px;
+    height: 80%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+}
+
+.authenticated-container {
+    animation: 0.75s fadeIn
+}
+
+.column {
+    flex: 50%;
+    padding: 15px;
+}
+
+.row {
+    display: flex;
+}

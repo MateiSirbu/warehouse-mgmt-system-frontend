@@ -1,0 +1,25 @@
+<div class="container">
+    <nav mat-tab-nav-bar>
+        <button mat-flat-button color="primary" routerLink='/' (click)="activeLink = ''">
+            <mat-icon aria-hidden="false" style="padding-right: 5px">assignment</mat-icon>
+            {{ appName }}
+        </button>
+        <a mat-tab-link *ngFor="let link of sitemap.links; let i = index" (click)="activeLink = link"
+            [active]="activeLink == link" [routerLink]="link">
+            <mat-icon aria-hidden="false"> {{ sitemap.icons[i] }}</mat-icon>
+            {{sitemap.captions[i] | uppercase}}
+        </a>
+    </nav>
+    <button *ngIf="!authenticator.isLoggedIn()" routerLink='/login' mat-flat-button class="btn-login">
+        <mat-icon aria-hidden="false" style="padding-right: 5px">login</mat-icon>
+        LOGIN
+    </button>
+    <button *ngIf="!authenticator.isLoggedIn()" routerLink='/signup' mat-flat-button class="btn-signup">
+        <mat-icon aria-hidden="false" style="padding-right: 5px">person_add_alt_1</mat-icon>
+        SIGN UP
+    </button>
+    <button *ngIf="authenticator.isLoggedIn()" routerLink='/login' mat-flat-button class="btn-account">
+        <mat-icon aria-hidden="false" style="padding-right: 5px">account_circle</mat-icon>
+        {{ authenticator.getCachedUserName().toUpperCase() }}
+    </button>
+</div>

@@ -1,0 +1,47 @@
+<mat-drawer-container fullscreen>
+    <mat-drawer #drawer class="drawer-sidenav">
+        <mat-list>
+            <mat-list-item *ngFor="let link of sitemap.links; let i = index">
+                <button mat-flat-button [routerLink]="link" (click)="drawer.toggle()">
+                    <mat-icon class="label-icon" aria-hidden="false"> {{ sitemap.icons[i] }}</mat-icon>
+                    {{sitemap.captions[i] | uppercase}}
+                </button>
+            </mat-list-item>
+            <mat-list-item *ngIf="!authenticator.isLoggedIn()">
+                <button routerLink='/login' (click)="drawer.toggle()" mat-flat-button class="btn-login">
+                    <mat-icon aria-hidden="false" style="padding-right: 5px">login</mat-icon>
+                    LOGIN
+                </button>
+            </mat-list-item>
+            <mat-list-item *ngIf="!authenticator.isLoggedIn()">
+                <button routerLink='/signup' (click)="drawer.toggle()" mat-flat-button class="btn-signup">
+                    <mat-icon aria-hidden="false" style="padding-right: 5px">person_add_alt_1</mat-icon>
+                    SIGN UP
+                </button>
+            </mat-list-item>
+            <mat-list-item *ngIf="authenticator.isLoggedIn()">
+                <button routerLink='/login' (click)="drawer.toggle()" mat-flat-button class="btn-account">
+                    <mat-icon aria-hidden="false" style="padding-right: 5px">account_circle</mat-icon>
+                    {{ authenticator.getCachedUserName().toUpperCase() }}
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-drawer>
+    <div class="container">
+        <div class="header">
+            <nav mat-tab-nav-bar *ngIf="innerWidth <= 830px">
+                <button class="nav-bar-button" mat-flat-button color="primary" (click)="drawer.toggle()">
+                    <mat-icon aria-hidden="false">menu</mat-icon>
+                </button>
+                <button class="nav-bar-button" mat-flat-button color="primary" routerLink='/'>
+                    <mat-icon class="label-icon" aria-hidden="false">assignment</mat-icon>
+                    {{ appName }}
+                </button>
+            </nav>
+            <app-navbar *ngIf="innerWidth > 830px"></app-navbar>
+        </div>
+        <div class="content" [@animRoutes]="animationState">
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
+        </div>
+    </div>
+</mat-drawer-container>

@@ -1,4 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('./assets/fonts/Inter/inter.css');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+.mat-headline {
+    font-family: "Inter";
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.my-snack-bar {
+    background-color: rgb(63, 81, 181);
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.my-snack-bar button {
+    background-color: rgba(255, 255, 255, 0.87);
+    color: rgb(63, 81, 181);
+}
+
+.my-snack-bar-alert {
+    background-color: #C62828;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.my-snack-bar-alert button {
+    background-color: rgba(255, 255, 255, 0.87);
+    color: #C62828
+}
