@@ -21,7 +21,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { HTTP_INTERCEPTORS } from "@angular/common/http"
-import { AuthInterceptor } from './services/auth-interceptor.service'
+import { AuthInterceptor } from './services/auth-interceptor.service';
+import { ItemViewComponent } from './components/pages/item/item-view/item-view.component';
+import { OobeComponent } from './components/pages/oobe/oobe.component';
+import { MatCard, MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { AuthInterceptor } from './services/auth-interceptor.service'
     InventoryComponent,
     ScanComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ItemViewComponent,
+    OobeComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,8 @@ import { AuthInterceptor } from './services/auth-interceptor.service'
     MatButtonModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

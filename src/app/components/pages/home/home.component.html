@@ -1,5 +1,32 @@
 <div class="container">
-    <div class="welcome-message">
-        <h1>Welcome to WMS!</h1>
+    <div class="content">
+        <span>Welcome to WMS!</span>
+        <mat-card *ngIf="!authenticator.isLoggedIn()">
+            <img class="img-keychain" src="../../../../assets/images/keychain.png">
+            <mat-card-title>
+                You are not logged in
+            </mat-card-title>
+            <mat-card-subtitle>
+                To use the Warehouse Management System, you need to <b>authenticate</b>.
+            </mat-card-subtitle>
+            <mat-card-actions>
+                <button (click)="navigateToLogin()" mat-raised-button color="primary" cdkFocusInitial>
+                <mat-icon aria-hidden="false" style="padding-right: 5px">login</mat-icon>LOG IN</button>
+            </mat-card-actions>
+        </mat-card>
+        <mat-card *ngIf="authenticator.isLoggedIn() && authenticator.isAdmin()">
+            <img class="img-keychain" src="../../../../assets/images/keychain.png">
+            <mat-card-title>
+                You are logged in as an administrator
+            </mat-card-title>
+            <mat-card-subtitle>
+                Since you have administrative privileges, you can manage user accounts.
+            </mat-card-subtitle>
+            <mat-card-actions>
+                <button (click)="navigateToSignUp()" mat-raised-button color="primary" cdkFocusInitial>
+                    <mat-icon aria-hidden="false" style="padding-right: 5px">person_add_alt_1</mat-icon> ADD A NEW USER</button>
+            </mat-card-actions>
+        </mat-card>
+        <img src="../../../../assets/images/warehouse_hero.jpg">
     </div>
 </div>

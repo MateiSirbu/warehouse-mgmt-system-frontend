@@ -2,16 +2,81 @@
 
 .container {
     box-sizing: border-box;
-    padding: 30px 30px 30px 30px;
-    background-image: url('../../../../assets/images/warehouse_hero.jpg');
+    background-image: url('../../../../assets/images/warehouse_blur.png');
     background-position: center;
     height: 100%;
     overflow-y: scroll;
 }
 
-.welcome-message {
+.content {
     display: flex;
+    align-items: center;
     justify-content: center;
-    font-size: 22pt;
-    font-family: 'Inter';
+    flex-direction: column;
+    background: #000;
+    overflow-y: scroll;
+    height: 100%;
+    opacity: 0.66;
 }
+
+.content span {
+    margin: 30px 30px 30px 30px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1000%;
+    line-height: 100%;
+    position: relative;
+    user-select: none;
+    font-family: 'Inter';
+    font-weight: 600;
+    letter-spacing: -0.2cm;
+}
+
+.content img {
+    margin: auto;
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
+    mix-blend-mode: darken;
+}
+
+.mat-card
+{
+    display: relative;
+    margin: 30px 30px 30px 30px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+.mat-card-title {
+    font-family: 'Inter';
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.mat-card-title, .mat-card-subtitle {
+    pointer-events: none;
+    user-select: none;
+    padding-right: 90px;
+}
+
+.mat-card-actions {
+    margin: auto;
+}
+
+.img-keychain {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  right: 0px;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 700px) {
+    .content span {
+        font-size: 600%;
+    }
+  }

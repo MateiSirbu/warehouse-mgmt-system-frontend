@@ -8,61 +8,56 @@ import { User } from 'src/app/data/user.entity';
 import { AuthenticatorService } from '../../../services/authenticator.service'
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-oobe',
+  templateUrl: './oobe.component.html',
+  styleUrls: ['./oobe.component.css']
 })
-export class SignupComponent implements OnInit {
+export class OobeComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar,
     public authenticator: AuthenticatorService,
     private route: Router) { }
 
-  roles = ['Customer', 'Employee', 'Administrator']
-  model = new User({ firstName: "", lastName: "", email: "", hash: "", role: this.roles[0] })
-  verifyPassword = "";
+  model = new User({ firstName: "", lastName: "", email: "", hash: "" })
 
   inputEnabled = true;
   submitted = false;
+  verifyPassword = "";
 
   ngOnInit(): void {
     this.authenticator.isOobe()
-      .pipe(tap((resp: { isOobe: boolean }) => {
-        if (resp.isOobe == true) {
-          this.route.navigate(['/oobe'])
-          this.openSnackBar(`Welcome to WMS!`);
+      .pipe(tap((resp: {isOobe: boolean}) => {
+        if (resp.isOobe == false)
+        {
+          this.route.navigate(['/login'])
+          this.openSnackBarAlert('The out-of-box experience has ended.');
         }
       }))
-      .subscribe();
-    if (!this.authenticator.isLoggedIn() || !this.authenticator.isAdmin()) {
-      this.route.navigate(['/'])
-      this.openSnackBarAlert("User management requires administrative privileges.")
-    }
+      .subscribe()
   }
 
   onSubmit() {
-    this.openSnackBar('Creating account...')
+    this.openSnackBar('Creating your account...')
     this.inputEnabled = false;
     this.model.email = this.model.email.toLowerCase();
-
-    this.authenticator.signUp(this.model)
+    this.authenticator.signUpOobe(this.model)
       .pipe(tap((resp) => {
         if (resp != null) {
-          this.openSnackBar('Account created successfully.')
+          this.openSnackBar('Administrator account created successfully.')
           this.submitted = true;
           this.inputEnabled = true;
         }
       }))
       .pipe(catchError((error: HttpErrorResponse) => {
-        this.openSnackBarAlert(`${error.status}: Cannot add user. ${error.statusText}.`);
+        this.openSnackBarAlert(`${error.status}: ${error.statusText}. Cannot register.`);
         this.inputEnabled = true;
         return EMPTY;
       }))
       .subscribe();
   }
 
-  navigateToHomepage() {
-    this.route.navigate(['/']);
+  navigateToLogin() {
+    this.route.navigate(['/login']);
   }
 
   openSnackBar(message) {

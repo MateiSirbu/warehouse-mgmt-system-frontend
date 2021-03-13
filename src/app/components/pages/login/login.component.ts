@@ -36,6 +36,14 @@ export class LoginComponent implements OnInit {
         }), catchError(err => { return EMPTY; }))
         .subscribe();
     }
+    this.authenticator.isOobe()
+      .pipe(tap((resp: { isOobe: boolean }) => {
+        if (resp.isOobe == true) {
+          this.route.navigate(['/oobe'])
+          this.openSnackBar(`Welcome to WMS!`);
+        }
+      }))
+      .subscribe()
   }
 
   onSubmit() {
@@ -64,7 +72,7 @@ export class LoginComponent implements OnInit {
           this.openSnackBarAlert(`Incorrect credentials, please try again.`);
         }
         else
-          this.openSnackBarAlert(`${error.status}: ${error.statusText}. Cannot log in.`);
+          this.openSnackBarAlert(`${error.status}: Cannot log in. ${error.statusText}.`);
         this.inputEnabled = true;
         return EMPTY;
       }))

@@ -8,7 +8,7 @@ a {
 }
 
 .mat-icon {
-    padding-right: 5px
+    padding-right: 5px;
 }
 
 .mat-tab-nav-bar {
@@ -24,7 +24,6 @@ a {
 
 .btn-login {
     position: fixed;
-    z-index: 999;
     top: 6px;
     right: 10px;
     color: #F6900E;
@@ -33,7 +32,6 @@ a {
 
 .btn-account {
     position: fixed;
-    z-index: 999;
     top: 6px;
     right: 10px;
     color: #F6900E;
@@ -43,7 +41,6 @@ a {
 
 .btn-signup {
     position: fixed;
-    z-index: 999;
     top: 6px;
     right: 125px;
     color: #F6900E;

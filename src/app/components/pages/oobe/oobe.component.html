@@ -1,0 +1,49 @@
+<div class="container" [hidden]="submitted">
+    <div class="mat-headline">Let's get to know you</div>
+    <div class="mat-body">In order to configure the platform, you need to create an account with administrative privileges first.<br><br>
+    </div>
+    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.firstName" name="firstName" required matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.lastName" name="lastName" required matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>E-mail address</mat-label>
+                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.email" name="email" required matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Verify password</mat-label>
+                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="verifyPassword" name="verifyPassword" required matInput>
+            </mat-form-field>
+        </div>
+        <button type="submit" [disabled]="!f.form.valid || !inputEnabled || model.hash != verifyPassword" [hidden]="submitted" class="signup-button" matTooltip="Sign up" mat-fab color="primary">
+            <mat-icon>person_add_alt_1</mat-icon>
+        </button>
+    </form>
+</div>
+<div class="container" [hidden]="!submitted">
+    <div class="submitted-container">
+        <div class="mat-headline">
+            <mat-icon style="vertical-align: middle;">person_add_alt_1</mat-icon>&nbsp;Your account has been registered successfully.
+        </div>
+        <button mat-raised-button color="primary" (click)="navigateToLogin()" cdkFocusInitial>GO TO LOGIN</button>
+    </div>
+</div>
+<img class="img-keychain" src="../../../../assets/images/keychain.png">

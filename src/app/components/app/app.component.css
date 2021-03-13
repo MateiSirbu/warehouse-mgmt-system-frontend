@@ -6,6 +6,10 @@
     position: absolute;
 }
 
+.header {
+    z-index: 9000;
+}
+
 .nav-bar-button {
     height: 50px;
     background-color: #F6900E;

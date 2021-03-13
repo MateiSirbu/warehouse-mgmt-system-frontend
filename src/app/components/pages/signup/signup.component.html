@@ -1,18 +1,21 @@
 <div class="container" [hidden]="submitted">
-    <div class="mat-headline">Let's get to know you</div>
-    <div class="mat-body">In order to register, we need your name, e-mail address and password. Please enter them below.<br><br>
+    <div class="mat-headline">Create an account</div>
+    <div class="mat-body">In order to register an user, we need their name, e-mail address and password. Please enter
+        them below.<br><br>
     </div>
     <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>First Name</mat-label>
-                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.firstName" name="firstName" required matInput>
+                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.firstName" name="firstName" required
+                    matInput>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Last Name</mat-label>
-                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.lastName" name="lastName" required matInput>
+                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.lastName" name="lastName" required
+                    matInput>
             </mat-form-field>
         </div>
         <div>
@@ -24,28 +27,38 @@
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Password</mat-label>
-                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required matInput>
+                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required
+                    matInput>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Verify password</mat-label>
-                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="verifyPassword" name="verifyPassword" required matInput>
+                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="verifyPassword" name="verifyPassword"
+                    required matInput>
             </mat-form-field>
         </div>
-        <button type="submit" [disabled]="!f.form.valid || !inputEnabled || model.hash != verifyPassword" [hidden]="submitted" class="signup-button" matTooltip="Sign up" mat-fab color="primary">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Account type</mat-label>
+                <select matNativeControl [(ngModel)]="model.role" name="role">
+                    <option *ngFor="let role of roles" ([value])="role">{{ role }}</option>
+                </select>
+            </mat-form-field>
+        </div>
+        <button type="submit" [disabled]="!f.form.valid || !inputEnabled || model.hash != verifyPassword"
+            [hidden]="submitted" class="signup-button" matTooltip="Sign up" mat-fab color="primary">
             <mat-icon>person_add_alt_1</mat-icon>
         </button>
-        <div class="mat-body">Already have an account?&nbsp;&nbsp;&nbsp;<button mat-raised-button [disabled]="!inputEnabled" (click)="navigateToLogin()" color="primary" cdkFocusInitial>LOG IN</button>
-        </div>
     </form>
 </div>
 <div class="container" [hidden]="!submitted">
     <div class="submitted-container">
         <div class="mat-headline">
-            <mat-icon style="vertical-align: middle;">person_add_alt_1</mat-icon>&nbsp;Your account has been registered successfully.
+            <mat-icon style="vertical-align: middle;">person_add_alt_1</mat-icon>&nbsp;Your account has been registered
+            successfully.
         </div>
-        <button mat-raised-button color="primary" (click)="navigateToLogin()" cdkFocusInitial>GO TO LOGIN</button>
+        <button mat-raised-button color="primary" (click)="navigateToHomepage()" cdkFocusInitial>GO TO THE HOMEPAGE</button>
     </div>
 </div>
 <img class="img-keychain" src="../../../../assets/images/keychain.png">
