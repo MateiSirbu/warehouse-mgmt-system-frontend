@@ -25,6 +25,10 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
 import { ItemViewComponent } from './components/pages/item/item-view/item-view.component';
 import { OobeComponent } from './components/pages/oobe/oobe.component';
 import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddCompanyComponent } from './components/modals/add-company/add-company.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditCompanyComponent } from './components/modals/edit-company/edit-company.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,8 @@ import { MatCard, MatCardModule } from '@angular/material/card';
     SignupComponent,
     ItemViewComponent,
     OobeComponent,
+    AddCompanyComponent,
+    EditCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,9 @@ import { MatCard, MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,6 +1,6 @@
 <div class="container" [hidden]="authenticator.isLoggedIn()">
     <div class="mat-headline">Welcome back!</div>
-    <div class="mat-body">To log in, please enter your e-mail address and password below.<br><br></div>
+    <div class="mat-body">To log in, please enter your credentials below.<br><br></div>
     <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
         <div>
             <mat-form-field appearance="fill">
@@ -17,8 +17,6 @@
         <button type="submit" [disabled]="!f.form.valid || !inputEnabled" [hidden]="!authenticator.isLoggedIn()" class="login-button" matTooltip="Log In" mat-fab color="primary">
             <mat-icon>login</mat-icon>
         </button>
-        <div class="mat-body">Don’t have an account?&nbsp;&nbsp;&nbsp;<button mat-raised-button [disabled]="!inputEnabled" (click)="navigateToSignUp()" color="primary" cdkFocusInitial>SIGN UP</button>
-        </div>
     </form>
 </div>
 <div class="container" [hidden]="!authenticator.isLoggedIn()">
@@ -26,8 +24,6 @@
         <div class="mat-headline">
             <mat-icon>check</mat-icon> Hello there, {{userName}}!
         </div>
-        <button mat-raised-button (click)="navigateToInventoryList()" color="primary" cdkFocusInitial>GO TO
-            INVENTORY</button>&nbsp;
         <button mat-raised-button (click)="logOut()" color="primary" cdkFocusInitial>LOG OUT</button>
     </div>
 </div>

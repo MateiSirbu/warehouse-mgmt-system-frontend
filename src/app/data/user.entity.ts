@@ -1,3 +1,4 @@
+import { Company } from "./company.entity";
 import { Customer } from "./customer.entity";
 import { Employee } from "./employee.entity";
 

@@ -24,8 +24,8 @@ export class AuthenticatorService {
       .pipe(tap(res => this.setSession(res)), shareReplay());
   }
 
-  signUp(user: User) {
-    return this.http.post('/api/signup/', { user: user, idToken: localStorage.getItem('id_token') });
+  signUp(user: User, metadata?: string) {
+    return this.http.post('/api/signup/', { user: user, metadata: metadata });
   }
 
   signUpOobe(user: User) {
@@ -46,7 +46,7 @@ export class AuthenticatorService {
   }
 
   getAuthenticatedUserInfo() {
-    return this.http.post<User>('/api/login/userinfo/', { idToken: localStorage.getItem('id_token') });
+    return this.http.get<User>('/api/login/userinfo/');
   }
 
   getCachedUserName() {

@@ -60,6 +60,10 @@ export class OobeComponent implements OnInit {
     this.route.navigate(['/login']);
   }
 
+  navigateToHomepage() {
+    this.route.navigate(['/']);
+  }
+
   openSnackBar(message) {
     this.snackBar.open(message, 'OK', {
       duration: 3000,

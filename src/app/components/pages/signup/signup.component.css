@@ -17,6 +17,10 @@
     z-index: 10;
 }
 
+.btn-add-company, .btn-edit-company {
+    margin-left: 10px;
+}
+
 .signup-button {
     position: fixed;
     z-index: 999;
