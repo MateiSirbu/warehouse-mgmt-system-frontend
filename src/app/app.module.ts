@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddCompanyComponent } from './components/modals/add-company/add-company.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditCompanyComponent } from './components/modals/edit-company/edit-company.component';
+import { ResetPasswordComponent } from './components/modals/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { EditCompanyComponent } from './components/modals/edit-company/edit-comp
     OobeComponent,
     AddCompanyComponent,
     EditCompanyComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

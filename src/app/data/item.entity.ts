@@ -1,8 +1,11 @@
 export class Item {
-    id: string;
-    ean: string;
-    name: string;
-    uom: string;
+    id?: string;
+    sku?: string;
+    ean?: string;
+    name?: string;
+    uom?: string;
+    price?: number;
+    currency?: string;
 
     public constructor(init?: Partial<Item>) {
         Object.assign(this, init)

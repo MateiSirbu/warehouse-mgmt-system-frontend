@@ -33,6 +33,7 @@ export class AuthenticatorService {
   }
 
   private setSession(authResult) {
+    console.log(authResult)
     const expiresAt = moment().add(authResult.expiresIn, 'second');
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
@@ -67,15 +68,15 @@ export class AuthenticatorService {
   }
 
   isAdmin(): boolean {
-    return localStorage.getItem('is_admin').valueOf() == "true";
+    return localStorage.getItem('is_admin')?.valueOf() == "true";
   }
 
   isEmployee() {
-    return localStorage.getItem('is_employee');
+    return localStorage.getItem('is_employee')?.valueOf() == "true";
   }
 
   isCustomer() {
-    return localStorage.getItem('is_customer');
+    return localStorage.getItem('is_customer')?.valueOf() == "true";
   }
 
   isLoggedOut() {

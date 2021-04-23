@@ -11,10 +11,12 @@
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Password</mat-label>
-                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required matInput>
+                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required
+                    matInput>
             </mat-form-field>
         </div>
-        <button type="submit" [disabled]="!f.form.valid || !inputEnabled" [hidden]="!authenticator.isLoggedIn()" class="login-button" matTooltip="Log In" mat-fab color="primary">
+        <button type="submit" [disabled]="!f.form.valid || !inputEnabled" [hidden]="!authenticator.isLoggedIn()"
+            class="login-button" matTooltip="Log In" mat-fab color="primary">
             <mat-icon>login</mat-icon>
         </button>
     </form>
@@ -22,9 +24,27 @@
 <div class="container" [hidden]="!authenticator.isLoggedIn()">
     <div class="authenticated-container">
         <div class="mat-headline">
-            <mat-icon>check</mat-icon> Hello there, {{userName}}!
+            <mat-icon>check</mat-icon> Hello there, {{authenticatedUser?.firstName}}!
         </div>
+        <h3 class="mat-body">
+            You are logged in as <b>{{authenticatedUser?.firstName}} {{authenticatedUser?.lastName}}
+                <i>&lt;{{authenticatedUser?.email}}&gt;</i></b>
+        </h3>
+        <h3 [hidden]="!authenticator.isCustomer()" class="mat-body">
+            <div>You are a <b>customer</b>, interacting with the platform on behalf of:</div>
+            <h3 class="mat-body">
+                <div><b>{{authenticatedUser?.company?.name}}</b></div>
+                <div>{{authenticatedUser?.company?.address}}</div>
+            </h3>
+        </h3>
+        <h3 [hidden]="!authenticator.isEmployee()" class="mat-body">
+            You are an <b>employee</b> of this warehouse.
+            <span [hidden]="!authenticator.isAdmin()" class="mat-body">
+                Your account has been granted <b>administrative privileges</b>.
+            </span>
+        </h3>
         <button mat-raised-button (click)="logOut()" color="primary" cdkFocusInitial>LOG OUT</button>
+        <button mat-button color="primary">RESET YOUR PASSWORD</button>
     </div>
 </div>
 <img class="img-keychain" src="../../../../assets/images/keychain.png">

@@ -6,6 +6,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { User } from 'src/app/data/user.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ResetPasswordComponent } from '../../modals/reset-password/reset-password.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     public authenticator: AuthenticatorService,
-    private route: Router) { }
+    private route: Router,
+    public dialog: MatDialog) { }
 
   inputEnabled = true;
 
@@ -26,13 +29,14 @@ export class LoginComponent implements OnInit {
     hash: ""
   })
 
-  userName: string;
+  authenticatedUser: any;
 
   ngOnInit(): void {
     if (this.authenticator.isLoggedIn()) {
       this.authenticator.getAuthenticatedUserInfo()
         .pipe(tap((res) => {
-          this.userName = res.firstName + ' ' + res.lastName
+          this.authenticatedUser = res;
+          console.log(this.authenticatedUser)
         }), catchError(err => { return EMPTY; }))
         .subscribe();
     }
@@ -56,7 +60,8 @@ export class LoginComponent implements OnInit {
           this.openSnackBar(`Login successful.`);
           this.authenticator.getAuthenticatedUserInfo()
             .pipe(tap((res) => {
-              this.userName = res.firstName + ' ' + res.lastName
+              this.authenticatedUser = res;
+              console.log(this.authenticatedUser)
             }), catchError(err => { return EMPTY; }))
             .subscribe();
         }
@@ -85,6 +90,15 @@ export class LoginComponent implements OnInit {
 
   navigateToSignUp() {
     this.route.navigate(['/signup']);
+  }
+
+  onResetPassswordClick() {
+    const dialogRef = this.dialog.open(ResetPasswordComponent, { width: '400px', maxHeight: '90vh' })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        this.openSnackBar('Your password has been reset successfully.')
+      }
+    })
   }
 
   logOut() {
