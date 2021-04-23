@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
     this.route.navigate(['/signup']);
   }
 
-  onResetPassswordClick() {
+  onResetPasswordClick() {
     const dialogRef = this.dialog.open(ResetPasswordComponent, { width: '400px', maxHeight: '90vh' })
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {

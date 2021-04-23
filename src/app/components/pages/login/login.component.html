@@ -44,7 +44,7 @@
             </span>
         </h3>
         <button mat-raised-button (click)="logOut()" color="primary" cdkFocusInitial>LOG OUT</button>
-        <button mat-button color="primary">RESET YOUR PASSWORD</button>
+        <button mat-button (click)="onResetPasswordClick()" color="primary">RESET YOUR PASSWORD</button>
     </div>
 </div>
 <img class="img-keychain" src="../../../../assets/images/keychain.png">

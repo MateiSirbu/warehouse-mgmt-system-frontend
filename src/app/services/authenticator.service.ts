@@ -32,6 +32,10 @@ export class AuthenticatorService {
     return this.http.post('/api/signup/oobe', user);
   }
 
+  resetPassword(credentials: any) {
+    return this.http.post('/api/login/reset', credentials);
+  }
+
   private setSession(authResult) {
     console.log(authResult)
     const expiresAt = moment().add(authResult.expiresIn, 'second');
