@@ -54,12 +54,13 @@
                 </select>
             </mat-form-field>
             <div style="display: inline; vertical-align: super;">
-                <button class="btn-add-company" [disabled]="!inputEnabled" (click)="addCompany()" matTooltip="Add company"
-                    matTooltipPosition="below" mat-mini-fab color="primary">
+                <button type="button" class="btn-add-company" [disabled]="!inputEnabled" (click)="addCompany()"
+                    matTooltip="Add company" matTooltipPosition="below" mat-mini-fab color="primary">
                     <mat-icon>add</mat-icon>
                 </button>
-                <button class="btn-edit-company" (click)="editCompany()" matTooltip="Edit company"
-                    [disabled]="!inputEnabled || model.company == null" matTooltipPosition="below" mat-mini-fab color="primary">
+                <button type="button" class="btn-edit-company" (click)="editCompany()" matTooltip="Edit company"
+                    [disabled]="!inputEnabled || model.company == null" matTooltipPosition="below" mat-mini-fab
+                    color="primary">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
