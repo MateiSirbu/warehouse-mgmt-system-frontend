@@ -7,3 +7,45 @@
     height: 100%;
     overflow-y: scroll;
 }
+
+.items {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 90px 40px 40px 40px;
+    background-color: rgba(255, 255, 255, 0.25);
+    overflow: auto;
+}
+
+.mat-table {
+    display: table;
+    position: relative;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.35);
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.header {
+    width: 100%;
+}
+
+.header-right mat-icon {
+    vertical-align: sub;
+}
+
+.header-status {
+    margin-right: 10px;
+}
+
+.header-left {
+    width: 50%;
+}
+
+.header-right {
+    vertical-align: top;
+    width: 49%;
+    text-align: right;
+}

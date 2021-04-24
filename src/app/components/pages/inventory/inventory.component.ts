@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Item } from 'src/app/data/item.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class InventoryComponent implements OnInit {
     private snackBar: MatSnackBar,
     public authenticator: AuthenticatorService,
     private router: Router) { }
+
+  items: Item[]
 
   ngOnInit(): void {
     if (!this.authenticator.isLoggedIn()) {
@@ -37,4 +40,9 @@ export class InventoryComponent implements OnInit {
     });
   }
 
+  fetchHeader() {
+    return ['sku', 'ean', 'name',
+      'unitprice', 'stock', 'actions'
+    ];
+  }
 }

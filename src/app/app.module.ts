@@ -30,6 +30,9 @@ import { AddCompanyComponent } from './components/modals/add-company/add-company
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditCompanyComponent } from './components/modals/edit-company/edit-company.component';
 import { ResetPasswordComponent } from './components/modals/reset-password/reset-password.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddItemComponent } from './components/modals/add-item/add-item.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,7 @@ import { ResetPasswordComponent } from './components/modals/reset-password/reset
     AddCompanyComponent,
     EditCompanyComponent,
     ResetPasswordComponent,
+    AddItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,9 @@ import { ResetPasswordComponent } from './components/modals/reset-password/reset
     MatInputModule,
     MatCardModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
