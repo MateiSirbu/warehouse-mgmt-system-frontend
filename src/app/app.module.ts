@@ -33,6 +33,7 @@ import { ResetPasswordComponent } from './components/modals/reset-password/reset
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddItemComponent } from './components/modals/add-item/add-item.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { AddItemComponent } from './components/modals/add-item/add-item.componen
     MatTooltipModule,
     MatDialogModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    ZXingScannerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

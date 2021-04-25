@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Item } from 'src/app/data/item.entity';
@@ -14,7 +15,8 @@ export class InventoryComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     public authenticator: AuthenticatorService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   items: Item[]
 

@@ -6,13 +6,11 @@
     <mat-dialog-content>
         <mat-form-field [style.width.%]=100 appearance="fill">
             <mat-label>Name</mat-label>
-            <input type="text" matInput formControlName="name">
-            <mat-error>Required field</mat-error>
+            <input type="text" required matInput formControlName="name">
         </mat-form-field>
         <mat-form-field [style.width.%]=100 appearance="fill">
             <mat-label>Address</mat-label>
-            <textarea type="text" matInput formControlName="address"></textarea>
-            <mat-error>Required field</mat-error>
+            <textarea type="text" required matInput formControlName="address"></textarea>
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>

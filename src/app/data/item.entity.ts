@@ -4,10 +4,9 @@ export class Item {
     ean?: string;
     name?: string;
     uom?: string;
-    price?: number;
-    currency?: string;
+    unitprice?: number;
     stock?: number;
-    
+
     public constructor(init?: Partial<Item>) {
         Object.assign(this, init)
     }

@@ -1,1 +1,54 @@
-<p>add-item works!</p>
+<form [formGroup]="form">
+    <div mat-dialog-title>
+        <mat-icon aria-hidden="false" style="vertical-align: middle;">add</mat-icon>
+        Add an item
+    </div>
+    <mat-dialog-content>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>SKU</mat-label>
+            <input type="text" required matInput formControlName="sku">
+        </mat-form-field>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>EAN</mat-label>
+            <button *ngIf="!scannerTurnedOn" (click)="toggleCamera()" mat-button matSuffix mat-icon-button
+                aria-label="Clear">
+                <mat-icon>document_scanner</mat-icon>
+            </button>
+            <button *ngIf="scannerTurnedOn" (click)="toggleCamera()" mat-button matSuffix mat-icon-button
+                aria-label="Clear">
+                <mat-icon>no_photography</mat-icon>
+            </button>
+            <input type="number" required matInput formControlName="ean">
+        </mat-form-field>
+        <div class="scanner-status" *ngIf="scannerTurnedOn && hasPermission == null">
+            <mat-icon>warning</mat-icon>&nbsp;Asking for permission...
+        </div>
+        <div class="scanner-status" *ngIf="scannerTurnedOn && hasPermission == false">
+            <mat-icon>error</mat-icon>&nbsp;Permission denied.
+        </div>
+        <div class="scanner-status" *ngIf="scannerTurnedOn && hasPermission && availableDevices != null">
+            <img src="../../../assets/gifs/looking_for_you.gif" height="16px">&nbsp;Looking for barcode...
+        </div>
+        <zxing-scanner [hidden]="!hasPermission" *ngIf="scannerTurnedOn" [torch]="torchEnabled" [tryHarder]="tryHarder"
+            [(device)]="currentDevice" [formats]="formats" (permissionResponse)="onPermissionResponse($event)"
+            (camerasFound)="onCamerasFound($event)" (scanSuccess)="onScanSuccess($event)">
+        </zxing-scanner>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Name</mat-label>
+            <input type="text" required matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Unit of measurement</mat-label>
+            <input type="text" required matInput formControlName="uom">
+        </mat-form-field>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Unit price (RON)</mat-label>
+            <input type="number" required matInput formControlName="unitprice">
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button (click)="onCancelClick()">CANCEL</button>
+        <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary"
+            [mat-dialog-close]="true">OK</button>
+    </mat-dialog-actions>
+</form>
