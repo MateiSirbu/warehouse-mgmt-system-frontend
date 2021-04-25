@@ -14,10 +14,9 @@ export class AddCompanyComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public form: FormGroup
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() { }
 
-  onCancelClick(): void {
+  onCancelClick() {
     this.dialogRef.close();
   }
 

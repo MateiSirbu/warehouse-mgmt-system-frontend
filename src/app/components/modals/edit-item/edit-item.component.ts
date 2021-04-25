@@ -1,20 +1,19 @@
-import { Inject } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BarcodeFormat } from '@zxing/library';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
+import { BarcodeFormat } from '@zxing/library';
 
 @Component({
-  selector: 'app-add-item',
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.css']
+  selector: 'app-edit-item',
+  templateUrl: './edit-item.component.html',
+  styleUrls: ['./edit-item.component.css']
 })
-export class AddItemComponent implements OnInit {
+export class EditItemComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<AddItemComponent>,
+    public dialogRef: MatDialogRef<EditItemComponent>,
     @Inject(MAT_DIALOG_DATA) public form: FormGroup,
     private snackBar: MatSnackBar,
     public authenticator: AuthenticatorService
@@ -64,5 +63,4 @@ export class AddItemComponent implements OnInit {
   onCancelClick() {
     this.dialogRef.close();
   }
-
 }

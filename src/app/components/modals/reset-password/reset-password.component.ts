@@ -23,7 +23,7 @@ export class ResetPasswordComponent implements OnInit {
 
   public form: FormGroup
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.form = this.fb.group({
       oldPassword: this.fb.control('', Validators.required),
       newPassword: this.fb.control('', Validators.required),
@@ -46,7 +46,7 @@ export class ResetPasswordComponent implements OnInit {
         this.dialogRef.close(true);
       }), catchError((err: HttpErrorResponse) => {
         this.form.enable();
-        this.openSnackBarAlert(`${err.status}: ${err.statusText}.`);
+        this.openSnackBarAlert(`Cannot reset password. ${err.statusText}. (${err.status})`);
         return EMPTY;
       }))
       .subscribe();

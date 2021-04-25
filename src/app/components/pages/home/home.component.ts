@@ -9,7 +9,10 @@ import { AuthenticatorService } from '../../../services/authenticator.service'
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(public authenticator: AuthenticatorService, public router: Router) { }
+  constructor(
+    public authenticator: AuthenticatorService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void { }
 

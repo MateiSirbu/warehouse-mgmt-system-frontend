@@ -1,7 +1,7 @@
 export class Item {
     id?: string;
     sku?: string;
-    ean?: string;
+    ean?: number;
     name?: string;
     uom?: string;
     unitprice?: number;

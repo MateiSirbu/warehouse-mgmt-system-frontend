@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
           this.openSnackBarAlert(`Incorrect credentials, please try again.`);
         }
         else
-          this.openSnackBarAlert(`${error.status}: Cannot log in. ${error.statusText}.`);
+          this.openSnackBarAlert(`Cannot log in. ${error.statusText}. (${error.status})`);
         this.inputEnabled = true;
         return EMPTY;
       }))

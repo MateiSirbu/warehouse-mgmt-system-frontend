@@ -22,7 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { HTTP_INTERCEPTORS } from "@angular/common/http"
 import { AuthInterceptor } from './services/auth-interceptor.service';
-import { ItemViewComponent } from './components/pages/item/item-view/item-view.component';
+import { ItemComponent } from './components/pages/item/item.component';
 import { OobeComponent } from './components/pages/oobe/oobe.component';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddItemComponent } from './components/modals/add-item/add-item.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { EditItemComponent } from './components/modals/edit-item/edit-item.component';
 
 @NgModule({
   declarations: [
@@ -44,12 +45,13 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ScanComponent,
     LoginComponent,
     SignupComponent,
-    ItemViewComponent,
+    ItemComponent,
     OobeComponent,
     AddCompanyComponent,
     EditCompanyComponent,
     ResetPasswordComponent,
     AddItemComponent,
+    EditItemComponent,
   ],
   imports: [
     BrowserModule,
