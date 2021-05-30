@@ -4,10 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { AddItemComponent } from 'src/app/components/modals/add-item/add-item.component';
 import { Item } from 'src/app/data/item.entity';
+import { AuthenticatorService } from 'src/app/services/authenticator.service';
 import { ItemService } from 'src/app/services/item.service';
 import { EditItemComponent } from '../../modals/edit-item/edit-item.component';
 
@@ -25,10 +27,17 @@ export class ItemComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     private itemService: ItemService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authenticator: AuthenticatorService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    if (!this.authenticator.isLoggedIn() || !this.authenticator.isEmployee()) {
+      this.openSnackBarAlert('To manage SKUs, you need to log in as an employee first.')
+      this.router.navigate(['/login']);
+      return;
+    }
     this.itemService.getItems()
       .pipe(tap((resp) => {
         this.items = resp
@@ -73,7 +82,7 @@ export class ItemComponent implements OnInit {
               .subscribe();
           }))
           .pipe(catchError((error: HttpErrorResponse) => {
-            this.openSnackBarAlert(`Could not add item. ${error.statusText}. (${error.status})`);
+            this.openSnackBarAlert(`Could not edit item. ${error.statusText}. (${error.status})`);
             return EMPTY;
           }))
           .subscribe();

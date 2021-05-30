@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+    <div mat-dialog-title>
+        <mat-icon aria-hidden="false" style="vertical-align: middle;">edit</mat-icon>
+        Edit stock on hand
+    </div>
+    <mat-dialog-content>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Stock on hand</mat-label>
+            <input type="number" required matInput formControlName="stock">
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button (click)="onCancelClick()">CANCEL</button>
+        <button type="submit" [disabled]="!form.valid || form.controls['stock'].value < 0 || (form.controls['stock'].value) % 1 != 0" mat-raised-button color="primary"
+            [mat-dialog-close]="true">OK</button>
+    </mat-dialog-actions>
+</form>

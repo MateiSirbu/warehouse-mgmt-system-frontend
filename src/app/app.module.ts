@@ -35,6 +35,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddItemComponent } from './components/modals/add-item/add-item.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { EditItemComponent } from './components/modals/edit-item/edit-item.component';
+import { EditStockOHComponent } from './components/modals/edit-stock-oh/edit-stock-oh.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { EditItemComponent } from './components/modals/edit-item/edit-item.compo
     ResetPasswordComponent,
     AddItemComponent,
     EditItemComponent,
+    EditStockOHComponent,
   ],
   imports: [
     BrowserModule,
