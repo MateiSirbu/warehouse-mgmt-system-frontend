@@ -65,7 +65,35 @@ export class CartComponent implements OnInit {
   }
 
   onClearCartClick() {
-    
+    this.cartItemService.clearCart()
+      .pipe(tap((resp) => {
+        this.cartItemService.getCartItems()
+          .pipe(tap((resp) => {
+            this.cartItems = resp
+            this.openSnackBar(`Cart cleared.`);
+          })).subscribe()
+      }))
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.openSnackBarAlert(`Could not clear your cart. ${error.statusText}. (${error.status})`);
+        return EMPTY;
+      }))
+      .subscribe();
+  }
+
+  onDeleteItemClick(item: CartItem) {
+    this.cartItemService.deleteCartItem(item)
+      .pipe(tap((resp) => {
+        this.cartItemService.getCartItems()
+          .pipe(tap((resp) => {
+            this.cartItems = resp
+            this.openSnackBar(`Cart item removed.`);
+          })).subscribe()
+      }))
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.openSnackBarAlert(`Could not remove item. ${error.statusText}. (${error.status})`);
+        return EMPTY;
+      }))
+      .subscribe();
   }
 
   onBackButtonClick() {

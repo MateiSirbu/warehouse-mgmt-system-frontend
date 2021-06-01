@@ -23,4 +23,12 @@ export class CartItemService {
   getCartItems(): Observable<CartItem[]> {
     return this.http.get<CartItem[]>('/api/cart');
   }
+
+  deleteCartItem(item: CartItem) {
+    return this.http.delete('/api/cart/' + item.id)
+  }
+
+  clearCart() {
+    return this.http.delete('/api/cart');
+  }
 }
