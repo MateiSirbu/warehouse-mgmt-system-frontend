@@ -36,6 +36,8 @@ import { AddItemComponent } from './components/modals/add-item/add-item.componen
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { EditItemComponent } from './components/modals/edit-item/edit-item.component';
 import { EditStockOHComponent } from './components/modals/edit-stock-oh/edit-stock-oh.component';
+import { AddToCartComponent } from './components/modals/add-to-cart/add-to-cart.component';
+import { CartComponent } from './components/pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { EditStockOHComponent } from './components/modals/edit-stock-oh/edit-sto
     AddItemComponent,
     EditItemComponent,
     EditStockOHComponent,
+    AddToCartComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,9 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { CartItem } from 'src/app/data/cartitem.entity';
 import { Item } from 'src/app/data/item.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
+import { CartItemService } from 'src/app/services/cart-item.service';
 import { ItemService } from 'src/app/services/item.service';
+import { AddToCartComponent } from '../../modals/add-to-cart/add-to-cart.component';
 import { EditStockOHComponent } from '../../modals/edit-stock-oh/edit-stock-oh.component';
 
 @Component({
@@ -24,7 +27,8 @@ export class InventoryComponent implements OnInit {
     public dialog: MatDialog,
     public authenticator: AuthenticatorService,
     private router: Router,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private cartItemService: CartItemService
   ) { }
 
   items: Item[]
@@ -81,10 +85,33 @@ export class InventoryComponent implements OnInit {
     })
   }
 
-  onAddCartItemClick(item) {
-    
+  onAddCartItemClick(item: Item) {
+    let selectedItemForm = this.fb.group({
+      productName: [{ value: item.name, disabled: true }, Validators.required],
+      qty: [1, Validators.required]
+    })
+    const dialogRef = this.dialog.open(AddToCartComponent, { width: '400px', maxHeight: '90vh', data: selectedItemForm })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        let selectedCartItem: CartItem = {
+          item: item,
+          qty: selectedItemForm.value.qty,
+        }
+        this.cartItemService.addCartItem(selectedCartItem).pipe(tap((resp) => {
+          this.openSnackBar(`Added item to cart.`);
+        }))
+          .pipe(catchError((error: HttpErrorResponse) => {
+            this.openSnackBarAlert(`Could not add to cart. ${error.statusText}. (${error.status})`);
+            return EMPTY;
+          }))
+          .subscribe();
+      }
+    })
   }
 
+  navigateToCart() {
+    this.router.navigate(['/cart'])
+  }
   openSnackBar(message) {
     this.snackBar.open(message, 'OK', {
       duration: 3000,

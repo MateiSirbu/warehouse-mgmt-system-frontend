@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+    <div mat-dialog-title>
+        <mat-icon aria-hidden="false" style="vertical-align: middle;">add_shopping_cart</mat-icon>
+        Add item to cart
+    </div>
+    <mat-dialog-content>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Product name</mat-label>
+            <input type="text" required matInput formControlName="productName">
+        </mat-form-field>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Quantity</mat-label>
+            <input type="number" required matInput formControlName="qty">
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button (click)="onCancelClick()">CANCEL</button>
+        <button type="submit"
+            [disabled]="!form.valid || form.controls['qty'].value <= 0 || (form.controls['qty'].value) % 1 != 0"
+            mat-raised-button color="primary" [mat-dialog-close]="true">OK</button>
+    </mat-dialog-actions>
+</form>
