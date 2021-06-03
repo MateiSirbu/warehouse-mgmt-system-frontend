@@ -14,7 +14,7 @@
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-button (click)="onCancelClick()">CANCEL</button>
+        <button type="button" mat-button (click)="onCancelClick()">CANCEL</button>
         <button type="submit" [disabled]="!form.valid || form.controls['name'].value == '' || form.controls['address'].value == ''" mat-raised-button color="primary"
             [mat-dialog-close]="true">OK</button>
     </mat-dialog-actions>
