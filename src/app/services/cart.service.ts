@@ -6,7 +6,7 @@ import { CartItem } from '../data/cartitem.entity';
 @Injectable({
   providedIn: 'root'
 })
-export class CartItemService {
+export class CartService {
 
   constructor(
     private http: HttpClient

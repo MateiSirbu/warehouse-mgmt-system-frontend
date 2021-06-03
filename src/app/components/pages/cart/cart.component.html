@@ -4,12 +4,15 @@
             <h1 class="mat-headline">
                 <button mat-icon-button color="primary" class="back-button" (click)="onBackButtonClick()">
                     <mat-icon>arrow_back</mat-icon>
-                </button>Your cart
+                </button><span class="window-title">Your cart</span>
             </h1>
         </td>
         <td class="header-right">
-            <button mat-button (click)="onClearCartClick()" color="primary">CLEAR CART</button>&nbsp;
-            <button mat-raised-button color="primary">PLACE ORDER</button>
+            <span class="grand-total-caption mat-subheading-2">GRAND TOTAL: </span>
+            <span class="grand-total mat-subheading-2"><b>{{cartTotal().toFixed(2)}} RON</b></span>
+            <button mat-button [disabled]="!canPlaceOrder()" (click)="onClearCartClick()" color="primary">CLEAR
+                CART</button>&nbsp;
+            <button mat-raised-button [disabled]="!canPlaceOrder()" (click)="onPlaceOrderClick()" color="primary">PLACE ORDER</button>
         </td>
     </table>
     <div class="items mat-elevation-z8">
@@ -50,4 +53,5 @@
             <tr mat-row *matRowDef="let row; columns: fetchHeader();"></tr>
         </table>
     </div>
+
 </div>

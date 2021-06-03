@@ -9,7 +9,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { CartItem } from 'src/app/data/cartitem.entity';
 import { Item } from 'src/app/data/item.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
-import { CartItemService } from 'src/app/services/cart-item.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ItemService } from 'src/app/services/item.service';
 import { AddToCartComponent } from '../../modals/add-to-cart/add-to-cart.component';
 import { EditStockOHComponent } from '../../modals/edit-stock-oh/edit-stock-oh.component';
@@ -28,7 +28,7 @@ export class InventoryComponent implements OnInit {
     public authenticator: AuthenticatorService,
     private router: Router,
     private itemService: ItemService,
-    private cartItemService: CartItemService
+    private cartItemService: CartService
   ) { }
 
   items: Item[]

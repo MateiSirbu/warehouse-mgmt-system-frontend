@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -8,7 +9,8 @@ import { EMPTY } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CartItem } from 'src/app/data/cartitem.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
-import { CartItemService } from 'src/app/services/cart-item.service';
+import { CartService } from 'src/app/services/cart.service';
+import { PlaceCustomerOrderComponent } from '../../modals/place-customer-order/place-customer-order.component';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +25,7 @@ export class CartComponent implements OnInit {
     public dialog: MatDialog,
     public authenticator: AuthenticatorService,
     private router: Router,
-    private cartItemService: CartItemService
+    private cartItemService: CartService
   ) { }
 
   cartItems: CartItem[]
@@ -80,6 +82,26 @@ export class CartComponent implements OnInit {
       .subscribe();
   }
 
+  onPlaceOrderClick() {
+    if (this.authenticator.isCustomer()) {
+      let submitForm = this.fb.group({
+        grandtotal: [{ value: this.cartTotal().toFixed(2) + " RON", disabled: true }],
+        address: ["", Validators.required]
+      })
+      const dialogRef = this.dialog.open(PlaceCustomerOrderComponent, { width: '400px', maxHeight: '90vh', data: submitForm })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == true) {
+          this.openSnackBar(`Order placed successfully.`);
+        }
+      })
+    } else {
+
+    }
+  }
+
+  canPlaceOrder() {
+    return this.cartItems.length > 0
+  }
   onDeleteItemClick(item: CartItem) {
     this.cartItemService.deleteCartItem(item)
       .pipe(tap((resp) => {
@@ -94,6 +116,14 @@ export class CartComponent implements OnInit {
         return EMPTY;
       }))
       .subscribe();
+  }
+
+  cartTotal() {
+    let total = 0.0;
+    for (let i = 0; i < this.cartItems.length; i++) {
+      total += (this.cartItems[i].item.unitprice * this.cartItems[i].qty);
+    }
+    return total;
   }
 
   onBackButtonClick() {
