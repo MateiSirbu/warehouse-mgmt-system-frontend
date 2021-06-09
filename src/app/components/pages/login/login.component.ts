@@ -8,6 +8,8 @@ import { AuthenticatorService } from 'src/app/services/authenticator.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from '../../modals/reset-password/reset-password.component';
+import { OrderService } from 'src/app/services/order.service';
+import { CustomerOrder, OrderStatus } from 'src/app/data/customerorder.entity';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +21,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     public authenticator: AuthenticatorService,
+    public order: OrderService,
     private route: Router,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {  }
 
   inputEnabled = true;
 
@@ -30,9 +33,21 @@ export class LoginComponent implements OnInit {
   })
 
   authenticatedUser: any;
+  customerOrders: CustomerOrder[] = []
+
+  fetchCustomerOrders() {
+    if (this.authenticator.isLoggedIn() && this.authenticator.isCustomer()) {
+      this.order.getUserOrders()
+        .pipe(tap((res: CustomerOrder[]) => {
+          this.customerOrders = res;
+        }))
+        .subscribe()
+    }
+  }
 
   ngOnInit(): void {
     if (this.authenticator.isLoggedIn()) {
+      this.fetchCustomerOrders()
       this.authenticator.getAuthenticatedUserInfo()
         .pipe(tap((res) => {
           this.authenticatedUser = res;
@@ -92,6 +107,18 @@ export class LoginComponent implements OnInit {
     this.route.navigate(['/signup']);
   }
 
+  navigateToOrderPreview(id: string) {
+    this.route.navigate(['/custorder/'+id])
+  }
+
+  getFormattedDate(date: number) {
+    return new Date(date);
+  }
+
+  getOrderStatusText(status: OrderStatus) {
+    return OrderStatus[status];
+  }
+
   onResetPasswordClick() {
     const dialogRef = this.dialog.open(ResetPasswordComponent, { width: '400px', maxHeight: '90vh' })
     dialogRef.afterClosed().subscribe(result => {
@@ -99,6 +126,7 @@ export class LoginComponent implements OnInit {
         this.openSnackBar('Your password has been reset successfully.')
       }
     })
+
   }
 
   logOut() {

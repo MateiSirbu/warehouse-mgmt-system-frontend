@@ -57,3 +57,7 @@ mat-form-field {
 .row {
     display: flex;
 }
+
+.mat-card {
+    margin-bottom: 10px;
+}

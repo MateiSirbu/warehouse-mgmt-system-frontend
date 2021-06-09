@@ -51,7 +51,7 @@ export class AuthenticatorService {
   }
 
   getAuthenticatedUserInfo() {
-    return this.http.get<User>('/api/login/userinfo/');
+    return this.http.get<any>('/api/login/userinfo/');
   }
 
   getCachedUserName() {

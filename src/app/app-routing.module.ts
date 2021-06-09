@@ -8,6 +8,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { OobeComponent } from './components/pages/oobe/oobe.component';
 import { ScanComponent } from './components/pages/scan/scan.component'
 import { SignupComponent } from './components/pages/signup/signup.component';
+import { CustorderComponent } from './components/pages/custorder/custorder.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'item/view', component: ItemComponent, data: { routeIndex: 1 } },
   { path: 'scan', component: ScanComponent, data: { routeIndex: 2 } },
   { path: 'cart', component: CartComponent },
+  { path: 'custorder/:id', component: CustorderComponent }
 ];
 
 @NgModule({

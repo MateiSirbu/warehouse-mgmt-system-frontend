@@ -39,6 +39,7 @@ import { EditStockOHComponent } from './components/modals/edit-stock-oh/edit-sto
 import { AddToCartComponent } from './components/modals/add-to-cart/add-to-cart.component';
 import { CartComponent } from './components/pages/cart/cart.component';
 import { PlaceCustomerOrderComponent } from './components/modals/place-customer-order/place-customer-order.component';
+import { CustorderComponent } from './components/pages/custorder/custorder.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { PlaceCustomerOrderComponent } from './components/modals/place-customer-
     AddToCartComponent,
     CartComponent,
     PlaceCustomerOrderComponent,
+    CustorderComponent
   ],
   imports: [
     BrowserModule,
