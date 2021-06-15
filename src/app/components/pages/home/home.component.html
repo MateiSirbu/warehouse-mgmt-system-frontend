@@ -1,13 +1,13 @@
 <div class="container">
     <div class="content">
-        <span>Welcome to WMS!</span>
+        <span>Welcome to MicroWMS!</span>
         <mat-card *ngIf="!authenticator.isLoggedIn()">
             <img class="img-keychain" src="../../../../assets/images/keychain.png">
             <mat-card-title>
                 You are not logged in
             </mat-card-title>
             <mat-card-subtitle>
-                To use the Warehouse Management System, you need to <b>authenticate</b>.
+                To use the warehouse management system, you need to <b>authenticate</b>.
             </mat-card-subtitle>
             <mat-card-actions>
                 <button (click)="navigateToLogin()" mat-raised-button color="primary" cdkFocusInitial>

@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class SitemapService {
 
-    links = ['inventory', 'item/view', 'scan'];
-    captions = ['Inventory', 'Items', 'Scan'];
-    icons = ['list', 'search', 'qr_code_scanner']
+    links = ['inventory', 'item/view'];
+    captions = ['Inventory', 'Items'];
+    icons = ['list', 'search']
 
     constructor() { }
 

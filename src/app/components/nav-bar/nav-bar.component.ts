@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit {
   sitemap: any;
   activeLink: string = '';
   background: ThemePalette = 'primary';
-  appName: string = 'Warehouse Management System';
+  appName: string = 'MicroWMS';
   authenticatedUserName: string = '';
 
   constructor(

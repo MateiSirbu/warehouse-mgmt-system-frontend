@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
   animationState: number;
   sitemap: any;
   innerWidth: number;
-  appName: string = 'Warehouse Management System';
+  appName: string = 'MicroWMS';
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;

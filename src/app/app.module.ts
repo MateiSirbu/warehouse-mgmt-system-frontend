@@ -14,7 +14,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
-import { ScanComponent } from './components/pages/scan/scan.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -47,7 +46,6 @@ import { CustorderComponent } from './components/pages/custorder/custorder.compo
     NavBarComponent,
     HomePageComponent,
     InventoryComponent,
-    ScanComponent,
     LoginComponent,
     SignupComponent,
     ItemComponent,

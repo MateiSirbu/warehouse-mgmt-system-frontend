@@ -23,7 +23,7 @@
     margin: 30px 30px 30px 30px;
     color: #fff;
     font-weight: 500;
-    font-size: 1000%;
+    font-size: 800%;
     line-height: 100%;
     position: relative;
     user-select: none;
@@ -77,6 +77,6 @@
 
 @media only screen and (max-width: 700px) {
     .content span {
-        font-size: 600%;
+        font-size: 500%;
     }
   }
