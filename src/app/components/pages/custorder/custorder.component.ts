@@ -6,6 +6,7 @@ import { EMPTY } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { COLine } from 'src/app/data/coline.entity';
 import { CustomerOrder } from 'src/app/data/customerorder.entity';
+import { AuthenticatorService } from 'src/app/services/authenticator.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class CustorderComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private orderService: OrderService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public auth: AuthenticatorService
   ) { }
 
   orderId: string;
@@ -28,7 +30,7 @@ export class CustorderComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.orderId = params.id;
     })
-    this.orderService.getUserOrderById(this.orderId)
+    this.orderService.getCustOrderById(this.orderId)
       .pipe(tap((resp) => {
         this.orderItems = (resp as CustomerOrder).lines
       }))
@@ -40,7 +42,10 @@ export class CustorderComponent implements OnInit {
   }
 
   fetchHeader() {
-    return ['name', 'unitprice', 'qty', 'filledQty', 'price', 'actions'];
+    if (this.auth.isEmployee())
+      return ['name', 'unitprice', 'qty', 'filledQty', 'price', 'actions'];
+    else
+      return ['name', 'unitprice', 'qty', 'price'];
   }
 
   cartTotal() {
@@ -53,6 +58,10 @@ export class CustorderComponent implements OnInit {
 
   onBackButtonClick() {
     this.router.navigate(['/login'])
+  }
+
+  onFillItemClick(item) {
+
   }
 
   openSnackBarAlert(message) {

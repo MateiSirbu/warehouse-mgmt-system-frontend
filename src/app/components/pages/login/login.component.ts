@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from 'src/app/data/user.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     public authenticator: AuthenticatorService,
     public order: OrderService,
     private route: Router,
-    public dialog: MatDialog) {  }
+    public dialog: MatDialog) { }
 
   inputEnabled = true;
 
@@ -33,13 +33,13 @@ export class LoginComponent implements OnInit {
   })
 
   authenticatedUser: any;
-  customerOrders: CustomerOrder[] = []
+  orders: CustomerOrder[] = []
 
-  fetchCustomerOrders() {
-    if (this.authenticator.isLoggedIn() && this.authenticator.isCustomer()) {
-      this.order.getUserOrders()
+  fetchOrders() {
+    if (this.authenticator.isLoggedIn()) {
+      return this.order.getCustOrders()
         .pipe(tap((res: CustomerOrder[]) => {
-          this.customerOrders = res;
+          this.orders = res;
         }))
         .subscribe()
     }
@@ -47,11 +47,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authenticator.isLoggedIn()) {
-      this.fetchCustomerOrders()
       this.authenticator.getAuthenticatedUserInfo()
         .pipe(tap((res) => {
           this.authenticatedUser = res;
-          console.log(this.authenticatedUser)
+          this.fetchOrders()
         }), catchError(err => { return EMPTY; }))
         .subscribe();
     }
@@ -76,7 +75,7 @@ export class LoginComponent implements OnInit {
           this.authenticator.getAuthenticatedUserInfo()
             .pipe(tap((res) => {
               this.authenticatedUser = res;
-              console.log(this.authenticatedUser)
+              this.fetchOrders()
             }), catchError(err => { return EMPTY; }))
             .subscribe();
         }
@@ -108,7 +107,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToOrderPreview(id: string) {
-    this.route.navigate(['/custorder/'+id])
+    this.route.navigate(['/custorder/' + id])
   }
 
   getFormattedDate(date: number) {
@@ -126,7 +125,6 @@ export class LoginComponent implements OnInit {
         this.openSnackBar('Your password has been reset successfully.')
       }
     })
-
   }
 
   logOut() {

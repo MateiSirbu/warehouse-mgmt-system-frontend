@@ -46,15 +46,45 @@
         <button mat-raised-button (click)="logOut()" color="primary" cdkFocusInitial>LOG OUT</button>
         <button mat-button (click)="onResetPasswordClick()" color="primary">RESET YOUR PASSWORD</button>
     </div><br>
-    <div [hidden]="!authenticator.isLoggedIn() || !authenticator.isCustomer()">
+    <div *ngIf="authenticator.isLoggedIn() && authenticator.isCustomer()">
         <div class="authenticated-container">
             <div class="mat-headline">
                 <mat-icon>list</mat-icon> Your orders
             </div>
-            <h3 *ngIf="customerOrders.length == 0" class="mat-body">
+            <h3 *ngIf="orders.length == 0" class="mat-body">
                 You haven't placed any orders yet.
             </h3>
-            <mat-card *ngFor="let order of customerOrders">
+            <mat-card *ngFor="let order of orders">
+                <mat-card-header>
+                    <mat-card-title>Order {{order.id}}</mat-card-title>
+                    <mat-card-subtitle><b>Placed on {{getFormattedDate(order.date)}}</b></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        <b>Current status:</b> {{getOrderStatusText(order.status)}} <br>
+                        <b>Delivery location:</b> {{order.address}} <br>
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button mat-icon-button>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="authenticator.isLoggedIn() && authenticator.isEmployee()">
+        <div class="authenticated-container">
+            <div class="mat-headline">
+                <mat-icon>list</mat-icon> All orders
+            </div>
+            <h3 *ngIf="orders.length == 0" class="mat-body">
+                No orders have been placed yet.
+            </h3>
+            <mat-card *ngFor="let order of orders">
                 <mat-card-header>
                     <mat-card-title>Order {{order.id}}</mat-card-title>
                     <mat-card-subtitle><b>Placed on {{getFormattedDate(order.date)}}</b></mat-card-subtitle>

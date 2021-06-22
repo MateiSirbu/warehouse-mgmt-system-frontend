@@ -6,7 +6,7 @@ import { CustomerOrder } from '../data/customerorder.entity';
   providedIn: 'root'
 })
 export class OrderService {
-  getUserOrderById(id: string) {
+  getCustOrderById(id: string) {
     return this.http.get<CustomerOrder>('/api/order/' + id);
   }
 
@@ -14,7 +14,7 @@ export class OrderService {
     return this.http.post('/api/order', item);
   }
 
-  getUserOrders() {
+  getCustOrders() {
     return this.http.get<CustomerOrder[]>('/api/order');
   }
   constructor(

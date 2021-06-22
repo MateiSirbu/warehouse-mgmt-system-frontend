@@ -39,6 +39,14 @@
     vertical-align: sub;
 }
 
+.btn-status {
+    margin-left: 10px;
+}
+
+.header-left mat-icon {
+    vertical-align: sub;
+}
+
 .header-status {
     margin-right: 10px;
 }
