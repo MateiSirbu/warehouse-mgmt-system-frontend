@@ -37,7 +37,8 @@
     min-width: 50px;
 }
 
-.mat-column-sku, .mat-column-ean {
+.mat-column-sku,
+.mat-column-ean {
     width: 200px;
     min-width: 200px;
 }
@@ -74,7 +75,7 @@
 
 .header-right {
     vertical-align: top;
-    width: 49%;
+    width: 20%;
     text-align: right;
 }
 

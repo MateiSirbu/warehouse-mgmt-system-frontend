@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'oobe', component: OobeComponent },
   { path: '', component: HomePageComponent },
   { path: 'inventory', component: InventoryComponent, data: { routeIndex: 0 } },
-  { path: 'item/view', component: ItemComponent, data: { routeIndex: 1 } },
+  { path: 'item', component: ItemComponent, data: { routeIndex: 1 } },
   { path: 'cart', component: CartComponent },
   { path: 'custorder/:id', component: CustorderComponent }
 ];

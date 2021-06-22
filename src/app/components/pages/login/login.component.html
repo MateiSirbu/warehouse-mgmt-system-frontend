@@ -91,6 +91,7 @@
                 </mat-card-header>
                 <mat-card-content>
                     <p>
+                        <b>Placed by:</b> {{order.customer.user.firstName}} {{order.customer.user.lastName}} <i>&lt;{{order.customer.user.email}}&gt;</i><br>
                         <b>Current status:</b> {{getOrderStatusText(order.status)}} <br>
                         <b>Delivery location:</b> {{order.address}} <br>
                     </p>
@@ -99,7 +100,7 @@
                     <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
                         <mat-icon>visibility</mat-icon>
                     </button>
-                    <button mat-icon-button>
+                    <button mat-icon-button [disabled]="order.status!=0" (click)="onCancelOrderClick(order)">
                         <mat-icon>cancel</mat-icon>
                     </button>
                 </mat-card-actions>

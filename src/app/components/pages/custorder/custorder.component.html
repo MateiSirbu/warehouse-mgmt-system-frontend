@@ -5,11 +5,11 @@
                 <button mat-icon-button color="primary" class="back-button" (click)="onBackButtonClick()">
                     <mat-icon>arrow_back</mat-icon>
                 </button><span class="window-title">Order overview</span>
-                <button type="button" class="btn-status" [disabled]="true" matTooltip="Cancel order"
+                <button type="button" class="btn-status" [disabled]="order.status!=0" (click)="onCancelOrderClick()" matTooltip="Cancel order"
                     matTooltipPosition="below" mat-mini-fab color="primary">
                     <mat-icon>cancel</mat-icon>
                 </button>
-                <button type="button" class="btn-status" [disabled]="true" matTooltip="Cancel order"
+                <button type="button" class="btn-status" [disabled]="!canCloseOrder()" (click)="onCloseOrderClick()" matTooltip="Close order"
                     matTooltipPosition="below" mat-mini-fab color="primary">
                     <mat-icon>pie_chart_outline</mat-icon>
                 </button>
@@ -53,7 +53,7 @@
             <ng-container matColumnDef="actions" *ngIf="auth.isEmployee()">
                 <th mat-header-cell *matHeaderCellDef> FILL ORDER </th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button color="primary" (click)="onFillItemClick(element)">
+                    <button mat-icon-button color="primary" (click)="onFillItemClick(element)" [disabled]="!canFillOrder()">
                         <mat-icon>pie_chart_outline</mat-icon>
                     </button>
                 </td>

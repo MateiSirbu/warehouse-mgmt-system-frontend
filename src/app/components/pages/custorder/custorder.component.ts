@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { COLine } from 'src/app/data/coline.entity';
-import { CustomerOrder } from 'src/app/data/customerorder.entity';
+import { CustomerOrder, OrderStatus } from 'src/app/data/customerorder.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -24,14 +24,14 @@ export class CustorderComponent implements OnInit {
     public auth: AuthenticatorService
   ) { }
 
-  orderId: string;
+  order: CustomerOrder
+  orderId: string
   orderItems: COLine[] = []
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      this.orderId = params.id;
-    })
+
+  fetchOrderItems() {
     this.orderService.getCustOrderById(this.orderId)
       .pipe(tap((resp) => {
+        this.order = (resp as CustomerOrder)
         this.orderItems = (resp as CustomerOrder).lines
       }))
       .pipe(catchError((error: HttpErrorResponse) => {
@@ -39,6 +39,12 @@ export class CustorderComponent implements OnInit {
         return EMPTY;
       }))
       .subscribe();
+  }
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      this.orderId = params.id;
+    })
+    this.fetchOrderItems()
   }
 
   fetchHeader() {
@@ -56,12 +62,62 @@ export class CustorderComponent implements OnInit {
     return total;
   }
 
+  canCloseOrder() {
+    let status = true
+    if ((this.order.status == OrderStatus.Cancelled) || (this.order.status == OrderStatus.Closed))
+      status = false
+    this.orderItems.forEach(orderItem => {
+      if (orderItem.qty != orderItem.filledQty)
+        status = false
+    });
+    return status
+  }
+  canFillOrder() {
+    let status = true
+    if ((this.order.status == OrderStatus.Cancelled) || (this.order.status == OrderStatus.Closed))
+      status = false
+    return status
+  }
+
   onBackButtonClick() {
     this.router.navigate(['/login'])
   }
 
+  onCancelOrderClick() {
+    this.orderService.updateCustOrderStatus(this.orderId, OrderStatus.Cancelled)
+      .pipe(tap((res) => {
+        this.openSnackBar(res)
+        this.fetchOrderItems()
+      }))
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.openSnackBarAlert(`${error.statusText}. (${error.status})`);
+        return EMPTY;
+      }))
+      .subscribe()
+  }
+
+  onCloseOrderClick() {
+    this.orderService.updateCustOrderStatus(this.orderId, OrderStatus.Closed)
+      .pipe(tap((res) => {
+        this.openSnackBar(res)
+        this.fetchOrderItems()
+      }))
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.openSnackBarAlert(`${error.statusText}. (${error.status})`);
+        return EMPTY;
+      }))
+      .subscribe()
+  }
+
   onFillItemClick(item) {
 
+  }
+
+  openSnackBar(message) {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000,
+      panelClass: ['my-snack-bar']
+    });
   }
 
   openSnackBarAlert(message) {

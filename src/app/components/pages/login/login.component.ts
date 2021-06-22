@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     public authenticator: AuthenticatorService,
     public order: OrderService,
     private route: Router,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private orderService: OrderService) { }
 
   inputEnabled = true;
 
@@ -40,9 +41,23 @@ export class LoginComponent implements OnInit {
       return this.order.getCustOrders()
         .pipe(tap((res: CustomerOrder[]) => {
           this.orders = res;
+          console.log(res)
         }))
         .subscribe()
     }
+  }
+
+  onCancelOrderClick(co: CustomerOrder) {
+    this.orderService.updateCustOrderStatus(co.id, OrderStatus.Cancelled)
+      .pipe(tap((res) => {
+        this.openSnackBar(res)
+        this.fetchOrders()
+      }))
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.openSnackBarAlert(`${error.statusText}. (${error.status})`);
+        return EMPTY;
+      }))
+      .subscribe()
   }
 
   ngOnInit(): void {

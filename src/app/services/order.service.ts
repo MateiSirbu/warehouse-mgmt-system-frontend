@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CustomerOrder } from '../data/customerorder.entity';
+import { CustomerOrder, OrderStatus } from '../data/customerorder.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,10 @@ export class OrderService {
 
   getCustOrders() {
     return this.http.get<CustomerOrder[]>('/api/order');
+  }
+
+  updateCustOrderStatus(id: string, status: OrderStatus) {
+    return this.http.post('/api/order/' + id, { status: status })
   }
   constructor(
     private http: HttpClient

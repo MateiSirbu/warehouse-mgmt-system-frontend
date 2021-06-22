@@ -4,9 +4,6 @@
             <h1 class="mat-headline">Manage your SKUs</h1>
         </td>
         <td class="header-right">
-            <button mat-mini-fab color="primary">
-                <mat-icon>delete</mat-icon>
-            </button>
             <button mat-mini-fab color="primary" (click)="onAddItemClick()">
                 <mat-icon>add</mat-icon>
             </button>
@@ -14,16 +11,6 @@
     </table>
     <div class="items mat-elevation-z8">
         <table mat-table [dataSource]="items" class="mat-elevation-z8 table-striped">
-            <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox color="primary">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-checkbox color="primary">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
             <ng-container matColumnDef="sku">
                 <th mat-header-cell *matHeaderCellDef> SKU </th>
                 <td mat-cell *matCellDef="let element"> {{element.sku}} </td>

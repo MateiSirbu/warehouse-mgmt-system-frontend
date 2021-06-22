@@ -50,7 +50,7 @@ export class ItemComponent implements OnInit {
   }
 
   fetchHeader() {
-    return ['select', 'sku', 'ean', 'name', 'unitprice', 'actions'];
+    return ['sku', 'ean', 'name', 'unitprice', 'actions'];
   }
 
   onAddItemClick() {
