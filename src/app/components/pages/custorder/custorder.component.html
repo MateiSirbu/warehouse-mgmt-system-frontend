@@ -9,7 +9,7 @@
                     matTooltipPosition="below" mat-mini-fab color="primary">
                     <mat-icon>cancel</mat-icon>
                 </button>
-                <button type="button" class="btn-status" [disabled]="!canCloseOrder()" (click)="onCloseOrderClick()" matTooltip="Close order"
+                <button type="button" class="btn-status" *ngIf="this.auth.isEmployee()" [disabled]="!canCloseOrder()" (click)="onCloseOrderClick()" matTooltip="Close order"
                     matTooltipPosition="below" mat-mini-fab color="primary">
                     <mat-icon>pie_chart_outline</mat-icon>
                 </button>
@@ -40,18 +40,18 @@
             </ng-container>
 
             <ng-container matColumnDef="filledQty" *ngIf="auth.isEmployee()">
-                <th mat-header-cell *matHeaderCellDef> FILLED QTY </th>
+                <th mat-header-cell *matHeaderCellDef> RESERVED QTY </th>
                 <td mat-cell *matCellDef="let element"> {{element.filledQty}} </td>
             </ng-container>
 
             <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef> TOTAL PRICE </th>
+                <th mat-header-cell *matHeaderCellDef> TOTAL VALUE </th>
                 <td mat-cell *matCellDef="let element"> {{(element.qty * element.item.unitprice.toFixed(2)).toFixed(2)}}
                     RON</td>
             </ng-container>
 
             <ng-container matColumnDef="actions" *ngIf="auth.isEmployee()">
-                <th mat-header-cell *matHeaderCellDef> FILL ORDER </th>
+                <th mat-header-cell *matHeaderCellDef> EDIT QTY </th>
                 <td mat-cell *matCellDef="let element">
                     <button mat-icon-button color="primary" (click)="onFillItemClick(element)" [disabled]="!canFillOrder()">
                         <mat-icon>pie_chart_outline</mat-icon>
