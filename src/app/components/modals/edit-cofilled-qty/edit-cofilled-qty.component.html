@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+    <div mat-dialog-title>
+        <mat-icon aria-hidden="false" style="vertical-align: middle;">edit</mat-icon>
+        Edit filled quantity
+    </div>
+    <mat-dialog-content>
+        <mat-form-field [style.width.%]=100 appearance="fill">
+            <mat-label>Filled qty</mat-label>
+            <input type="number" required matInput formControlName="filledQty">
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button type="button" mat-button (click)="onCancelClick()">CANCEL</button>
+        <button type="submit" [disabled]="!form.valid || form.controls['filledQty'].value < 0 || (form.controls['filledQty'].value) % 1 != 0" mat-raised-button color="primary"
+            [mat-dialog-close]="true">OK</button>
+    </mat-dialog-actions>
+</form>

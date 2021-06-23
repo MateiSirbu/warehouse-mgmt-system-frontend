@@ -41,6 +41,7 @@ export class InventoryComponent implements OnInit {
     }
     this.itemService.getItems()
       .pipe(tap((resp) => {
+        console.log(resp)
         this.items = resp
       }))
       .pipe(catchError((error: HttpErrorResponse) => {

@@ -39,6 +39,7 @@ import { AddToCartComponent } from './components/modals/add-to-cart/add-to-cart.
 import { CartComponent } from './components/pages/cart/cart.component';
 import { PlaceCustomerOrderComponent } from './components/modals/place-customer-order/place-customer-order.component';
 import { CustorderComponent } from './components/pages/custorder/custorder.component';
+import { EditCOFilledQtyComponent } from './components/modals/edit-cofilled-qty/edit-cofilled-qty.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CustorderComponent } from './components/pages/custorder/custorder.compo
     AddToCartComponent,
     CartComponent,
     PlaceCustomerOrderComponent,
-    CustorderComponent
+    CustorderComponent,
+    EditCOFilledQtyComponent
   ],
   imports: [
     BrowserModule,

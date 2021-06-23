@@ -1,5 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
@@ -8,6 +10,7 @@ import { COLine } from 'src/app/data/coline.entity';
 import { CustomerOrder, OrderStatus } from 'src/app/data/customerorder.entity';
 import { AuthenticatorService } from 'src/app/services/authenticator.service';
 import { OrderService } from 'src/app/services/order.service';
+import { EditCOFilledQtyComponent } from '../../modals/edit-cofilled-qty/edit-cofilled-qty.component';
 
 @Component({
   selector: 'app-custorder',
@@ -21,7 +24,9 @@ export class CustorderComponent implements OnInit {
     private router: Router,
     private orderService: OrderService,
     private snackBar: MatSnackBar,
-    public auth: AuthenticatorService
+    public auth: AuthenticatorService,
+    private fb: FormBuilder,
+    public dialog: MatDialog
   ) { }
 
   order: CustomerOrder
@@ -109,8 +114,32 @@ export class CustorderComponent implements OnInit {
       .subscribe()
   }
 
-  onFillItemClick(item) {
-
+  onFillItemClick(line: COLine) {
+    let selectedLineForm = this.fb.group({
+      filledQty: [{ value: line.filledQty, disabled: false }, Validators.required],
+    })
+    const dialogRef = this.dialog.open(EditCOFilledQtyComponent, { width: '400px', maxHeight: '90vh', data: selectedLineForm })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        let selectedLine: COLine = {
+          id: line.id,
+          item: line.item,
+          order: line.order,
+          qty: line.qty,
+          filledQty: selectedLineForm.value.filledQty
+        }
+        this.orderService.fillItem(selectedLine)
+          .pipe(tap((resp) => {
+            this.openSnackBar('Done.')
+            this.fetchOrderItems()
+          }))
+          .pipe(catchError((error: HttpErrorResponse) => {
+            this.openSnackBarAlert(`Could not edit item stock. ${error.statusText}. (${error.status})`);
+            return EMPTY;
+          }))
+          .subscribe();
+      }
+    })
   }
 
   openSnackBar(message) {

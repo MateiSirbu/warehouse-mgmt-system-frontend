@@ -6,6 +6,7 @@ export class Item {
     uom?: string;
     unitprice?: number;
     stock?: number;
+    availableQty?: number;
 
     public constructor(init?: Partial<Item>) {
         Object.assign(this, init)

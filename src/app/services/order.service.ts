@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { COLine } from '../data/coline.entity';
 import { CustomerOrder, OrderStatus } from '../data/customerorder.entity';
 
 @Injectable({
@@ -16,6 +17,10 @@ export class OrderService {
 
   getCustOrders() {
     return this.http.get<CustomerOrder[]>('/api/order');
+  }
+
+  fillItem(line: COLine) {
+    return this.http.post('/api/order/fill', line);
   }
 
   updateCustOrderStatus(id: string, status: OrderStatus) {
