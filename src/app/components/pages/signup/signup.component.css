@@ -13,7 +13,7 @@
     background-image: url('../../../../assets/images/warehouse_blur.png');
     background-position: center;
     height: 100%;
-    overflow-y: scroll;
+    overflow: auto;
     z-index: 10;
 }
 

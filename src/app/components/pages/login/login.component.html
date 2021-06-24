@@ -1,112 +1,115 @@
-<div class="container" [hidden]="authenticator.isLoggedIn()">
-    <div class="mat-headline">Welcome back!</div>
-    <div class="mat-body">To log in, please enter your credentials below.<br><br></div>
-    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>E-mail address</mat-label>
-                <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.email" name="email" required matInput>
-            </mat-form-field>
-        </div>
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Password</mat-label>
-                <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required
-                    matInput>
-            </mat-form-field>
-        </div>
-        <button type="submit" [disabled]="!f.form.valid || !inputEnabled" [hidden]="!authenticator.isLoggedIn()"
-            class="login-button" matTooltip="Log In" mat-fab color="primary">
-            <mat-icon>login</mat-icon>
-        </button>
-    </form>
-</div>
-<div class="container" [hidden]="!authenticator.isLoggedIn()">
-    <div class="authenticated-container">
-        <div class="mat-headline">
-            <mat-icon>check</mat-icon> Hello there, {{authenticatedUser?.firstName}}!
-        </div>
-        <h3 class="mat-body">
-            You are logged in as <b>{{authenticatedUser?.firstName}} {{authenticatedUser?.lastName}}
-                <i>&lt;{{authenticatedUser?.email}}&gt;</i></b>
-        </h3>
-        <h3 [hidden]="!authenticator.isCustomer()" class="mat-body">
-            <div>You are a <b>customer</b>, interacting with the platform on behalf of:</div>
-            <h3 class="mat-body">
-                <div><b>{{authenticatedUser?.company?.name}}</b></div>
-                <div>{{authenticatedUser?.company?.address}}</div>
-            </h3>
-        </h3>
-        <h3 [hidden]="!authenticator.isEmployee()" class="mat-body">
-            You are an <b>employee</b> of this warehouse.
-            <span [hidden]="!authenticator.isAdmin()" class="mat-body">
-                Your account has been granted <b>administrative privileges</b>.
-            </span>
-        </h3>
-        <button mat-raised-button (click)="logOut()" color="primary" cdkFocusInitial>LOG OUT</button>
-        <button mat-button (click)="onResetPasswordClick()" color="primary">RESET YOUR PASSWORD</button>
-    </div><br>
-    <div *ngIf="authenticator.isLoggedIn() && authenticator.isCustomer()">
-        <div class="authenticated-container">
-            <div class="mat-headline">
-                <mat-icon>list</mat-icon> Your orders
-            </div>
-            <h3 *ngIf="orders.length == 0" class="mat-body">
-                You haven't placed any orders yet.
-            </h3>
-            <mat-card *ngFor="let order of orders">
-                <mat-card-header>
-                    <mat-card-title>Order {{order.id}}</mat-card-title>
-                    <mat-card-subtitle><b>Placed on {{getFormattedDate(order.date)}}</b></mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        <b>Current status:</b> {{getOrderStatusText(order.status)}} <br>
-                        <b>Delivery location:</b> {{order.address}} <br>
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
-                        <mat-icon>visibility</mat-icon>
-                    </button>
-                    <button mat-icon-button>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-    </div>
-    <div *ngIf="authenticator.isLoggedIn() && authenticator.isEmployee()">
-        <div class="authenticated-container">
-            <div class="mat-headline">
-                <mat-icon>list</mat-icon> All orders
-            </div>
-            <h3 *ngIf="orders.length == 0" class="mat-body">
-                No orders have been placed yet.
-            </h3>
-            <mat-card *ngFor="let order of orders">
-                <mat-card-header>
-                    <mat-card-title>Order {{order.id}}</mat-card-title>
-                    <mat-card-subtitle><b>Placed on {{getFormattedDate(order.date)}}</b></mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        <b>Placed by:</b> {{order.customer.user.firstName}} {{order.customer.user.lastName}} <i>&lt;{{order.customer.user.email}}&gt;</i><br>
-                        <b>Current status:</b> {{getOrderStatusText(order.status)}} <br>
-                        <b>Delivery location:</b> {{order.address}} <br>
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
-                        <mat-icon>visibility</mat-icon>
-                    </button>
-                    <button mat-icon-button [disabled]="order.status!=0" (click)="onCancelOrderClick(order)">
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-    </div>
-</div>
 
-<img class="img-keychain" src="../../../../assets/images/keychain.png">
+    <div class="container" [hidden]="authenticator.isLoggedIn()">
+        <div class="mat-headline">Welcome back!</div>
+        <div class="mat-body">To log in, please enter your credentials below.<br><br></div>
+        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>E-mail address</mat-label>
+                    <input type="text" [disabled]="!inputEnabled" [(ngModel)]="model.email" name="email" required
+                        matInput>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input type="password" [disabled]="!inputEnabled" [(ngModel)]="model.hash" name="password" required
+                        matInput>
+                </mat-form-field>
+            </div>
+            <button type="submit" [disabled]="!f.form.valid || !inputEnabled" [hidden]="!authenticator.isLoggedIn()"
+                class="login-button" matTooltip="Log In" mat-fab color="primary">
+                <mat-icon>login</mat-icon>
+            </button>
+        </form>
+    </div>
+    <div class="container" [hidden]="!authenticator.isLoggedIn()">
+        <div class="authenticated-container">
+            <div class="mat-headline">
+                <mat-icon>check</mat-icon> Hello there, {{authenticatedUser?.firstName}}!
+            </div>
+            <h3 class="mat-body">
+                You are logged in as <b>{{authenticatedUser?.firstName}} {{authenticatedUser?.lastName}}
+                    <i>&lt;{{authenticatedUser?.email}}&gt;</i></b>
+            </h3>
+            <h3 [hidden]="!authenticator.isCustomer()" class="mat-body">
+                <div>You are a <b>customer</b>, interacting with the platform on behalf of:</div>
+                <h3 class="mat-body">
+                    <div><b>{{authenticatedUser?.company?.name}}</b></div>
+                    <div>{{authenticatedUser?.company?.address}}</div>
+                </h3>
+            </h3>
+            <h3 [hidden]="!authenticator.isEmployee()" class="mat-body">
+                You are an <b>employee</b> of this warehouse.
+                <span [hidden]="!authenticator.isAdmin()" class="mat-body">
+                    Your account has been granted <b>administrative privileges</b>.
+                </span>
+            </h3>
+            <button mat-raised-button (click)="logOut()" color="primary" cdkFocusInitial>LOG OUT</button>
+            <button mat-button (click)="onResetPasswordClick()" color="primary">RESET YOUR PASSWORD</button>
+        </div><br>
+        <div *ngIf="authenticator.isLoggedIn() && authenticator.isCustomer()">
+            <div class="authenticated-container">
+                <div class="mat-headline">
+                    <mat-icon>list</mat-icon> Your orders
+                </div>
+                <h3 *ngIf="orders.length == 0" class="mat-body">
+                    You haven't placed any orders yet.
+                </h3>
+                <mat-card *ngFor="let order of orders">
+                    <mat-card-header>
+                        <mat-card-title>Order {{order.id}}</mat-card-title>
+                        <mat-card-subtitle><b>Placed on {{getFormattedDate(order.date)}}</b></mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            <b>Current status:</b> {{getOrderStatusText(order.status)}} <br>
+                            <b>Delivery location:</b> {{order.address}} <br>
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+        <div *ngIf="authenticator.isLoggedIn() && authenticator.isEmployee()">
+            <div class="authenticated-container">
+                <div class="mat-headline">
+                    <mat-icon>list</mat-icon> All orders
+                </div>
+                <h3 *ngIf="orders.length == 0" class="mat-body">
+                    No orders have been placed yet.
+                </h3>
+                <mat-card *ngFor="let order of orders">
+                    <mat-card-header>
+                        <mat-card-title>Order {{order.id}}</mat-card-title>
+                        <mat-card-subtitle><b>Placed on {{getFormattedDate(order.date)}}</b></mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            <b>Placed by:</b> {{order.customer.user.firstName}} {{order.customer.user.lastName}}
+                            <i>&lt;{{order.customer.user.email}}&gt;</i><br>
+                            <b>Current status:</b> {{getOrderStatusText(order.status)}} <br>
+                            <b>Delivery location:</b> {{order.address}} <br>
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button [disabled]="order.status!=0" (click)="onCancelOrderClick(order)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <img class="img-keychain" src="../../../../assets/images/keychain.png">
