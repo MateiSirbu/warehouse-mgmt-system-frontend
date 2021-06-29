@@ -71,7 +71,7 @@
                         <button mat-icon-button (click)="navigateToOrderPreview(order.id)">
                             <mat-icon>visibility</mat-icon>
                         </button>
-                        <button mat-icon-button>
+                        <button mat-icon-button [disabled]="order.status!=0" (click)="onCancelOrderClick(order)">
                             <mat-icon>cancel</mat-icon>
                         </button>
                     </mat-card-actions>
